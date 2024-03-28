@@ -8,28 +8,28 @@ package modul_1_202357201031;
  *
  * @author WINDOWS 10
  */
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 public class methodx {
  
-    public double luas_lingkaran(int diameter) {
-        int jari2 = diameter / 2;
+    public double luas_lingkaran(double diameter) {
+        double jari2 = diameter / 2;
         double luas = Math.PI * Math.pow(jari2, 2);
         return luas;
     }
     
-    public double volume_tabung(int diameter, int tinggi) {
+    public double volume_tabung(double diameter, double tinggi) {
         double luasAlas = luas_lingkaran(diameter);
         double volume = luasAlas * tinggi;
         return volume;
     }
     
-    public double volume_kerucut(int diameter, int tinggi) {
+    public double volume_kerucut(double diameter, double tinggi) {
         double jari2 = diameter / 2.0;
         double volume = (1.0 / 3.0) * Math.PI * Math.pow(jari2, 2) * tinggi;
         return volume;
     }
     
-    public double volume_bola(int diameter) {
+    public double volume_bola(double diameter) {
         double jari2 = diameter / 2.0;
         double volume = (4.0 / 3.0) * Math.PI * Math.pow(jari2, 3);
         return volume;
@@ -37,23 +37,35 @@ public class methodx {
 
     public static void main(String[] args) {
         methodx mt = new methodx();
-        Scanner scanner = new Scanner(System.in);
+        String pilihanString = JOptionPane.showInputDialog(null, "Pilih bangun ruang: \n1. Tabung \n2. Kerucut\n3. Bola", "Pilihan", JOptionPane. QUESTION_MESSAGE);
+        
+        int pilihan = Integer.parseInt(pilihanString);
+        
+        double diameter, tinggi;
+        
+        if (pilihan == 1) {
+            diameter = Double.parseDouble (JOptionPane.showInputDialog(null, "Masukkan diameter lingkaran: "));
+            tinggi = Double.parseDouble (JOptionPane.showInputDialog(null, "Masukkan tinggi: "));
+            double volume_tabung = mt.volume_tabung(diameter, tinggi);
+            JOptionPane.showMessageDialog(null, "Volume Tabung: " + volume_tabung);
+            System.out.println("Volume Tabung: " + volume_tabung);
 
-        System.out.println("Masukkan diameter: ");
-        int diameter = scanner.nextInt();
+        } else if (pilihan == 2) {
+            diameter = Double.parseDouble (JOptionPane.showInputDialog(null, "Masukkan diameter lingkaran: "));
+            tinggi = Double.parseDouble (JOptionPane.showInputDialog(null, "Masukkan tinggi: "));
+            double volume_kerucut = mt.volume_kerucut(diameter, tinggi);
+            JOptionPane.showMessageDialog(null, "Volume Kerucut: " + volume_kerucut);
+            System.out.println("Volume Kerucut: " + volume_kerucut);
 
-        System.out.println("Masukkan tinggi untuk tabung dan kerucut (jika tidak ada, masukkan 0): ");
-        int tinggi = scanner.nextInt();
+        } else if (pilihan == 3) {
+            diameter = Double.parseDouble (JOptionPane.showInputDialog(null, "Masukkan diameter lingkaran: "));
+            double volume_bola = mt.volume_bola (diameter);
+            JOptionPane.showMessageDialog(null, "Volume Bola: " + volume_bola);
+            System.out.println("Volume Bola: " + volume_bola);
 
-        double volumeTabung = mt.volume_tabung(diameter, tinggi);
-        double volumeKerucut = mt.volume_kerucut(diameter, tinggi);
-        double volumeBola = mt.volume_bola(diameter);
-
-        System.out.println("Volume tabung: " + volumeTabung);
-        System.out.println("Volume kerucut: " + volumeKerucut);
-        System.out.println("Volume bola: " + volumeBola);
-
-        scanner.close();
+        } else {
+            JOptionPane.showMessageDialog(null, "Pilihan tidak ada");
+        }
         System.exit(0);
     }
 }
